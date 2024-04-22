@@ -1,38 +1,309 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+
+}
+body{
+  background-color: #EEF5FF;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #121212;
+  color: rgba(255, 255, 255, 0.836);
+  font-family: sans-serif;
+  font-size: 20px;
+  padding: 10px;
+  padding-left: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.headerDiv{
+  display: flex;
+  align-items: center;
+  font-weight: 900;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.headerLogo {
+  width: 20%;
+}
+
+.mainForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100%;
+
 }
 
-.App-link {
-  color: #61dafb;
+.Navbar{
+  width: 100%;
+}
+.Navbar>ul{
+  display: flex;
+  justify-content: space-around;
+  list-style-type:none;
+  font-weight: 400;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.Navbar>ul>li>a{
+  text-decoration: none;
+  color:white;
+}
+.headings {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.firstLabel{
+  margin-bottom: 10px;
+}
+
+.box {
+  font-family:'Times New Roman', Times, serif;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  background-color: transparent;
+  border:2px solid #213555;
+  color:black;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+select {
+  /* -moz-appearance: none; */
+  /* -webkit-appearance: none; */
+  background: white;
+  border: 1px solid #121212;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 12px;
+  width: 100%;
+  font-size: 14px;
+  margin-right: 1px;
+  border-radius: 10px;
+  height: 20%;
+  color:black;
+  &:focus {
+    color: black;
   }
-  to {
-    transform: rotate(360deg);
+  &::-ms-expand {
+    display: none;
   }
+}
+
+.btn{
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  border: transparent;
+  background-color: #4fff9b;
+  margin-top: 10px;
+}
+
+.btn:hover{
+  background-color: #4fff9bd3;
+}
+
+.mainForm > div{
+  width: 50%;
+  text-align: center;
+} 
+
+label{
+  border: 1px solid white;
+  padding: 10px;
+  
+}
+
+.firstInternal  input[type="text"]{
+  width: 76%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  border-radius: 10px;
+  border:1px solid black;
+  background-color: rgba(255, 255, 255, 0.791);
+  outline: none;
+  font-weight: 500;
+  padding-left: 4%;
+}
+
+.pair{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pair>div{
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+.inputExcelForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px;
+  border:2px solid black;
+}
+
+.inputExcelForm>label{
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width:280px;
+}
+
+#excelFile1,#excelFile2,#excelFile3 ,#excelFile4{
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 12px;
+  background-color: #213555;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  width:280px;
+}
+
+table{
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+
+}
+
+table td,th{
+  border: 1px solid black;
+}
+
+.feedbackForm{
+  display: flex;
+  flex-direction: column; 
+  width: 50%;
+  align-items: center;
+}
+.feedbackForm>div{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.feedbackForm>div>input{
+  width: 80%;
+}
+.feedbackDiv,.overallDiv{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.feedbackDiv>div ,.overallSubDiv{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border:2px solid #213555;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 20px;
+}
+.feedbackDiv>div input[type="text"]{
+  width: 50%;
+  padding-left: 10px;
+  outline: none;
+}
+
+.feedbackDiv label{
+  width:150px;
+}
+
+.feedbackDiv>div div{
+  margin-top: 5px;
+}
+
+.table,.OverallTable{
+  width: 80%;
+  margin-top: 10px;
+}
+
+
+.finalForm{
+  width: 90%;
+}
+
+.mainContentDiv{
+  min-height:100vh;
+}
+
+footer{
+  width: 100%;
+  background-color: #121212;
+  margin-top: 10px;
+  height: 80px;
+  color :white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  overflow-y: hidden;
+}
+
+footer>div{
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+footer>div>a{
+  text-decoration: none;
+}
+
+.instagram{
+  color: #C13584;
+}
+
+.linkedin{
+  color:#0077B5;
+}
+
+.weblink{
+  color:white;
+}
+
+.refresh-icon {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc; 
+  border-top: 4px solid #007bff; 
+  border-radius: 50%;
+  animation: spin 1s linear infinite; 
+  position: fixed;
+  top:50%;
+  left:50%;
+  
+}
+.refresh-back{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.466);
+  top:0;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
