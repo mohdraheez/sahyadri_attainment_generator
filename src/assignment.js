@@ -393,16 +393,16 @@ function Assignment() {
                                 CO1
                             </th>
                             <th>
-                                CO1
+                                CO2
                             </th>
                             <th>
-                                CO1
+                                CO3
                             </th>
                             <th>
-                                CO1
+                                CO4
                             </th>
                             <th>
-                                CO1
+                                CO5
                             </th>
                         </tr>
 
