@@ -57,8 +57,11 @@ function findattainment(co, setTarget) {
     }
 
     var noOfStudAttempeted = co.length - nullValues - 1;
-    var percentage = (noOfStudAttained / noOfStudAttempeted) * 100;
-    percentage = Math.round(percentage * 10) / 10;
+    var percentage = 0;
+    if(Number(noOfStudAttempeted)!=0){
+    percentage=(Number(noOfStudAttained) / Number(noOfStudAttempeted)) * 100;
+    percentage = Math.round(Number(percentage) * 10) / 10;
+    }
     arr.push(noOfStudAttained);
     arr.push(noOfStudAttempeted);
     arr.push(percentage);
@@ -326,11 +329,12 @@ function Home() {
             };
             reader.readAsBinaryString(file);
         };
-        console.log(coattain)
         processFile(file1);
         processFile(file2);
         processFile(file3);
         setTimeout(() => {
+        console.log(coattain)
+
             let arr1 = findattainment(coattain.CO1, 60);
             var tableArr = tableValues;
             tableArr[0] = arr1;
@@ -342,7 +346,7 @@ function Home() {
             tableArr[3] = arr4;
             let arr5 = findattainment(coattain.CO5, 60);
             tableArr[4] = arr5;
-            console.log(tableArr);
+            // console.log(tableArr);
             setTableValues(tableArr);
             setTableStyles({ 'visibility': 'visible' });
 
@@ -374,7 +378,7 @@ function Home() {
             }
             setrefreshStyle({ 'visibility': 'hidden' })
 
-            refreshCoattain();
+            // refreshCoattain();
         }, 2500);
 
     };
