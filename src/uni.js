@@ -58,9 +58,9 @@ function findattainment(co, setTarget) {
 
     if (percentage >= 50 && percentage < 60)
         level = 1;
-    if (percentage > 60 && percentage < 70)
+    if (percentage >= 60 && percentage < 70)
         level = 2;
-    if (percentage > 70)
+    if (percentage >= 70)
         level = 3;
 
     console.log("Attainment Level:", level);

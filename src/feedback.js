@@ -10,9 +10,9 @@ var attainmentData = [["", "CO1", "CO2", "CO3", "CO4", "CO5"], ["Total Attainmen
 function getLevel(val) {
     if (val >= 50 && val < 60)
         return 1;
-    if (val > 60 && val < 70)
+    if (val >= 60 && val < 70)
         return 2;
-    if (val > 70)
+    if (val >= 70)
         return 3;
 
     return 0;

@@ -58,7 +58,7 @@ function findattainment(co, setTarget) {
 
     var noOfStudAttempeted = co.length - nullValues - 1;
     var percentage = 0;
-    if(Number(noOfStudAttempeted)!=0){
+    if(Number(noOfStudAttempeted)!==0){
     percentage=(Number(noOfStudAttained) / Number(noOfStudAttempeted)) * 100;
     percentage = Math.round(Number(percentage) * 10) / 10;
     }
@@ -69,9 +69,9 @@ function findattainment(co, setTarget) {
 
     if (percentage >= 50 && percentage < 60)
         level = 1;
-    if (percentage > 60 && percentage < 70)
+    if (percentage >= 60 && percentage < 70)
         level = 2;
-    if (percentage > 70)
+    if (percentage >= 70)
         level = 3;
 
     arr.push(level)
