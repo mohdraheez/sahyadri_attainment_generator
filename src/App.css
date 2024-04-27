@@ -209,7 +209,7 @@ table td,th{
   flex-direction: column;
 }
 
-.feedbackDiv>div ,.overallSubDiv{
+.feedbackDiv>div ,.overallSubDiv, .uploadSubDiv{
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -306,4 +306,66 @@ footer>div>a{
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.uploadMain ,.viewMainDiv{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.uploadInputField{
+  width: 70%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  border-radius: 10px;
+  border:1px solid black;
+  background-color: rgba(255, 255, 255, 0.791);
+  outline: none;
+  font-weight: 500;
+  padding-left: 4%;
+}
+
+.uploadExcelGenerator{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.uploadExcel{
+  text-align: center;
+  border: 2px solid black;
+  padding: 100px;
+}
+
+.viewNavbar{
+  background-color: #121212;
+  align-items: center;
+}
+
+.viewNavbar > ul{
+  height: 40px;
+  align-items: center;
+}
+.viewMainDiv{
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.viewContent{
+  width: 80%;
+  margin-top: 20px;
+}
+
+.viewContent table{
+  text-align: center;
+  border:3px solid black;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.viewContent th ,.viewContent td{
+  padding:10px;
 }

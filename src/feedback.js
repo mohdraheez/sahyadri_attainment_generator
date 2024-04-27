@@ -80,7 +80,59 @@ function Feedback() {
 
             const wb = XLSX.utils.book_new();
             const ws = XLSX.utils.json_to_sheet(attainmentData);
+            var selectedStudOption = e.target.student_list.value;
 
+            if (selectedStudOption !== 'Select') {
+                selectedStudOption = selectedStudOption.split(' ');
+                selectedStudOption = selectedStudOption[1] + "_" + selectedStudOption[0][0] + "_" + selectedStudOption[0][1];
+                if (localStorage.getItem('Internals') === null) {
+                    var arr = [];
+                    var keyname = 'feedback';
+                    var obj = {
+
+                    }
+
+                    obj[keyname] = attainmentData;
+                    var obj2 = {
+
+                    }
+                    obj2[selectedStudOption] = obj;
+                    arr.push(obj2);
+                    localStorage.setItem('Internals', JSON.stringify(arr));
+                }
+                else {
+                    var arr = JSON.parse(localStorage.getItem('Internals'));
+                    var foundobject = arr.find(obj => obj.hasOwnProperty(selectedStudOption));
+                    if (foundobject === undefined) {
+                        var arr = [];
+                        var keyname = 'feedback';
+                        var obj = {
+
+                        }
+
+                        obj[keyname] = attainmentData;
+                        var obj2 = {
+
+                        }
+                        obj2[selectedStudOption] = obj;
+                        arr.push(obj2);
+                        localStorage.setItem('Internals', JSON.stringify(arr));
+                    }
+                    else {
+                        const index = arr.findIndex(obj => !obj.hasOwnProperty(selectedStudOption));
+                        var keyname = 'feedback';
+
+                        foundobject[selectedStudOption][keyname] = attainmentData;
+
+                        arr[index] = foundobject;
+
+                        localStorage.setItem('Internals', JSON.stringify(arr));
+
+                    }
+
+                }
+
+            }
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
             const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
@@ -104,6 +156,31 @@ function Feedback() {
 
         console.log(attainmentData)
     }
+    var noteStyle = {
+        "color": 'red'
+    }
+    function studentDetails() {
+        var stud_list = JSON.parse(localStorage.getItem("Student_list"));
+
+        console.log(stud_list);
+        if (stud_list === null || stud_list.length === 0) {
+            return (
+                <select id="student_list" name="student_list">
+                    <option>Select</option>
+                </select>
+            )
+        }
+        return (
+            <select id="student_list" name="student_list">
+                <option>Select</option>
+                {stud_list.map((val, index) =>
+
+                    <option>{Object.keys(val)[0].split('_')[1] + Object.keys(val)[0].split('_')[2] + " " + Object.keys(val)[0].split('_')[0]}</option>
+                )}
+            </select>
+        )
+
+    }
     return (
         <div className="feedbackDiv mainContentDiv">
 
@@ -113,6 +190,10 @@ function Feedback() {
                 <div className="refresh-back" style={refreshStyle}></div>
                 <form className="feedbackForm" onSubmit={handlesubmit}>
                     <h2>Enter the Student Feedback on COs (% ) taken through class survey :</h2>
+                    <span style={noteStyle}>Select sem,section and coursecode to store data locally in browser</span>
+                    <div className="pair">
+                        {studentDetails()}
+                    </div>
                     <div>
                         <label>Feedback on CO1</label>
                         <input type="text" id="co1" name="co1"></input>

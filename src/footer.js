@@ -8,7 +8,7 @@ function Footer() {
         <footer>
             &copy; mohdraheez
             <div >
-                <h4>For more queries</h4>
+                <h4>For any queries</h4>
                 <a href="https://www.instagram.com/mohdraheez/" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faInstagram} size="2x" className="instagram"/>
                 </a>

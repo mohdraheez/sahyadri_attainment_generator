@@ -58,9 +58,9 @@ function findattainment(co, setTarget) {
 
     var noOfStudAttempeted = co.length - nullValues - 1;
     var percentage = 0;
-    if(Number(noOfStudAttempeted)!==0){
-    percentage=(Number(noOfStudAttained) / Number(noOfStudAttempeted)) * 100;
-    percentage = Math.round(Number(percentage) * 10) / 10;
+    if (Number(noOfStudAttempeted) !== 0) {
+        percentage = (Number(noOfStudAttained) / Number(noOfStudAttempeted)) * 100;
+        percentage = Math.round(Number(percentage) * 10) / 10;
     }
     arr.push(noOfStudAttained);
     arr.push(noOfStudAttempeted);
@@ -105,6 +105,28 @@ function Home() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (event.target.student_list.value === "Select") {
+            alert("Please select student List");
+            return;
+        }
+        var stud_list_value = event.target.student_list.value;
+        stud_list_value = stud_list_value.split(" ");
+        stud_list_value = stud_list_value[1] + "_" + stud_list_value[0][0] + "_" + stud_list_value[0][1];
+
+        console.log(stud_list_value);
+
+        var student_list = JSON.parse(localStorage.getItem("Student_list"));
+
+        console.log(student_list)
+        var obj = student_list.find(function (item) {
+            return item.hasOwnProperty(stud_list_value)
+        })
+
+        obj[stud_list_value].forEach(element => {
+            var values = Object.values(element);
+            data.push(values);
+        });
 
         var targetValue = event.target;
         var firstDiv = targetValue.querySelector('.one');
@@ -219,6 +241,7 @@ function Home() {
             return;
         }
         setrefreshStyle({ 'visibility': 'visible' })
+        var count = 1;
         var flag = true;
         const processFile = (file) => {
             const reader = new FileReader();
@@ -236,6 +259,63 @@ function Home() {
 
                 // Read data from the worksheet
                 const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+                var selectedStudOption = event.target.student_list.value;
+
+                if (selectedStudOption !== 'Select') {
+                    selectedStudOption = selectedStudOption.split(' ');
+                    selectedStudOption = selectedStudOption[1] + "_" + selectedStudOption[0][0] + "_" + selectedStudOption[0][1];
+                    if (localStorage.getItem('Internals') === null) {
+                        var arr = [];
+                        var keyname = 'cie' + count;
+                        var obj = {
+
+                        }
+
+                        obj[keyname] = jsonData;
+                        var obj2 = {
+
+                        }
+                        obj2[selectedStudOption] = obj;
+                        arr.push(obj2);
+                        localStorage.setItem('Internals', JSON.stringify(arr));
+                    }
+                    else {
+                        var arr = JSON.parse(localStorage.getItem('Internals'));
+                        var foundobject = arr.find(obj => obj.hasOwnProperty(selectedStudOption));
+                        if (foundobject === undefined) {
+                            var arr = [];
+                            var keyname = 'cie' + count;
+                            var obj = {
+
+                            }
+
+                            obj[keyname] = jsonData;
+                            var obj2 = {
+
+                            }
+                            obj2[selectedStudOption] = obj;
+                            arr.push(obj2);
+                            localStorage.setItem('Internals', JSON.stringify(arr));
+                        }
+                        else {
+                            const index = arr.findIndex(obj => !obj.hasOwnProperty(selectedStudOption));
+                            var keyname = 'cie' + count;
+
+                            foundobject[selectedStudOption][keyname] = jsonData;
+
+                            arr[index] = foundobject;
+
+                            localStorage.setItem('Internals', JSON.stringify(arr));
+
+                        }
+
+                    }
+
+                    count = count + 1;
+                }
+
+
                 // console.log(jsonData);
                 var rowLenghtFile1 = Object.keys(jsonData[0]).length - 3;
                 var numOfStudFile1 = jsonData.length - 3;
@@ -333,7 +413,7 @@ function Home() {
         processFile(file2);
         processFile(file3);
         setTimeout(() => {
-        console.log(coattain)
+            console.log(coattain)
 
             let arr1 = findattainment(coattain.CO1, 60);
             var tableArr = tableValues;
@@ -355,7 +435,22 @@ function Home() {
                     attainmentData[i + 1].push(tableValues[j][i])
                 }
             }
+            var selectedStudOption = event.target.student_list.value;
 
+            if (selectedStudOption !== 'Select') {
+                selectedStudOption = selectedStudOption.split(' ');
+                selectedStudOption = selectedStudOption[1] + "_" + selectedStudOption[0][0] + "_" + selectedStudOption[0][1];
+                var arr = JSON.parse(localStorage.getItem('Internals'));
+                var foundobject = arr.find(obj => obj.hasOwnProperty(selectedStudOption));
+                const index = arr.findIndex(obj => !obj.hasOwnProperty(selectedStudOption));
+                var keyname = 'cieco';
+
+                foundobject[selectedStudOption][keyname] = attainmentData;
+                console.log(attainmentData)
+                arr[index] = foundobject;
+
+                localStorage.setItem('Internals', JSON.stringify(arr));
+            }
             const wb = XLSX.utils.book_new();
             const ws = XLSX.utils.json_to_sheet(attainmentData);
 
@@ -378,7 +473,7 @@ function Home() {
             }
             setrefreshStyle({ 'visibility': 'hidden' })
 
-            // refreshCoattain();
+            refreshCoattain();
         }, 2500);
 
     };
@@ -387,21 +482,21 @@ function Home() {
             { }
             <div className="pair">Q{qtns[qtnno]}:
                 <div>
-                <select id="firstq" name="firstq" onChange={(event) => handleChange(formIndex, event)}>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
-                </select>
-                <select id="CO" name="CO" >
-                    <option value='CO1'>CO1</option>
-                    <option value='CO2'>CO2</option>
-                    <option value='CO3'>CO3</option>
-                    <option value='CO4'>CO4</option>
-                    <option value='CO5'>CO5</option>
+                    <select id="firstq" name="firstq" onChange={(event) => handleChange(formIndex, event)}>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                    </select>
+                    <select id="CO" name="CO" >
+                        <option value='CO1'>CO1</option>
+                        <option value='CO2'>CO2</option>
+                        <option value='CO3'>CO3</option>
+                        <option value='CO4'>CO4</option>
+                        <option value='CO5'>CO5</option>
 
-                </select>
+                    </select>
                 </div>
             </div>
             {formStates[formIndex].map((value, index) => (
@@ -418,6 +513,33 @@ function Home() {
         </>
     );
 
+    function studentDetails() {
+        var stud_list = JSON.parse(localStorage.getItem("Student_list"));
+
+        console.log(stud_list);
+        if (stud_list === null || stud_list.length === 0) {
+            return (
+                <select id="student_list" name="student_list">
+                    <option>Select</option>
+                </select>
+            )
+        }
+        return (
+            <select id="student_list" name="student_list">
+                <option>Select</option>
+                {stud_list.map((val, index) =>
+
+                    <option>{Object.keys(val)[0].split('_')[1] + Object.keys(val)[0].split('_')[2] + " " + Object.keys(val)[0].split('_')[0]}</option>
+                )}
+            </select>
+        )
+
+    }
+
+    var noteStyle = {
+        "color": 'red'
+    }
+
     return (
         <div className="internalDiv mainContentDiv">
             <div className="refresh-icon" style={refreshStyle}></div>
@@ -427,6 +549,11 @@ function Home() {
             <div className="box">
                 <h2 className="headings">Internal Excel Sheet Template Generator</h2>
                 <form onSubmit={handleSubmit} className="firstInternal mainForm">
+                    <span style={noteStyle}>"note : student details must be uploaded in upload section or else it wont show up"</span>
+                    <div className="pair">
+                        <label for="student_list">Select Student details</label>
+                        {studentDetails()}
+                    </div>
                     <label htmlFor="firstq" className="firstLabel">Select number of subquestions in each question</label>
                     <div className="one">
                         {getFormat(0, questionIndex)}
@@ -448,7 +575,11 @@ function Home() {
                 </form>
 
                 <form onSubmit={handleExcelSubmit} className="inputExcelForm">
-                <h2 className="headings">Generate CO Attainment</h2>
+                    <h2 className="headings">Generate CO Attainment</h2>
+                    <span style={noteStyle}>Select sem,section and coursecode to store data locally in browser</span>
+                    <div className="pair">
+                        {studentDetails()}
+                    </div>
 
                     <label for="excelFile1">Upload First Internal Marks Excel sheet:</label>
                     <input type="file" id="excelFile1" name="excelFile1" accept=".xlsx, .xls" onChange={handleFile1Change} />
@@ -460,7 +591,7 @@ function Home() {
                     <input type="file" id="excelFile3" name="excelFile3" accept=".xlsx, .xls" onChange={handleFile3Change} />
 
 
-                    <input type="submit" value="Submit" className="btn"/>
+                    <input type="submit" value="Submit" className="btn" />
                 </form>
 
                 <table style={tableStyles}>
